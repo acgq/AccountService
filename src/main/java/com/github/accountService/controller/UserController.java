@@ -6,6 +6,7 @@ import com.github.accountService.model.commom.UserInfo;
 import com.github.accountService.model.service.UserInfoInService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +27,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserInfoInService getUserInfoByUserId(@PathVariable("id") long userId) {
+    public ResponseEntity<UserInfoInService> getUserInfoByUserId(@PathVariable("id") long userId) {
         log.debug("Get user info by user id: " + userId);
         UserInfo userInfo = userInfoManager.getUserInfoByUserId(userId);
-        return converter.convert(userInfo);
+        return ResponseEntity.ok(converter.convert(userInfo));
     }
 }
