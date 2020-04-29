@@ -1,6 +1,7 @@
 package com.github.accountService.controller;
 
 import com.github.accountService.converter.c2s.UserInfoConverterC2S;
+import com.github.accountService.exception.InvalidParameterException;
 import com.github.accountService.manager.UserInfoManager;
 import com.github.accountService.model.commom.UserInfo;
 import com.github.accountService.model.service.UserInfoInService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/v1/user")
@@ -29,7 +32,10 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserInfoInService> getUserInfoByUserId(@PathVariable("id") long userId) {
         log.debug("Get user info by user id: " + userId);
+        if (userId <= 0) {
+            throw new InvalidParameterException(String.format("invalid user id %s", userId));
+        }
         UserInfo userInfo = userInfoManager.getUserInfoByUserId(userId);
-        return ResponseEntity.ok(converter.convert(userInfo));
+        return ResponseEntity.ok(Objects.requireNonNull(converter.convert(userInfo)));
     }
 }

@@ -25,9 +25,6 @@ public class UserInfoManagerImpl implements UserInfoManager {
 
     @Override
     public UserInfo getUserInfoByUserId(Long userId) {
-        if (userId <= 0) {
-            throw new InvalidParameterException(String.format("invalid user id %s", userId));
-        }
         UserInfoInPersistence userInfo = Optional
                 .ofNullable(userInfoDao.getUserInfoByUserId(userId))
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User %s not found", userId)));
