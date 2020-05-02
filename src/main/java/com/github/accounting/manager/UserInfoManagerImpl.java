@@ -4,7 +4,6 @@ import com.github.accounting.converter.p2c.UserInfoConverterP2C;
 import com.github.accounting.dao.UserInfoDao;
 import com.github.accounting.exception.ResourceNotFoundException;
 import com.github.accounting.model.commom.UserInfo;
-import com.github.accounting.model.persistence.UserInfoInPersistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,11 +24,11 @@ public class UserInfoManagerImpl implements UserInfoManager {
 
     @Override
     public UserInfo getUserInfoByUserId(Long userId) {
-        UserInfoInPersistence userInfo = Optional
+        return Optional
                 .ofNullable(userInfoDao.getUserInfoByUserId(userId))
+                .map(converter::convert)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(String.format("User %s not found", userId)
                         ));
-        return converter.convert(userInfo);
     }
 }

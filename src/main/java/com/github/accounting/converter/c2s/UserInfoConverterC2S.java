@@ -3,9 +3,11 @@ import com.github.accounting.model.commom.UserInfo;
 import com.github.accounting.model.service.UserInfoInService;
 
 import com.google.common.base.Converter;
+import lombok.EqualsAndHashCode;
 import org.springframework.stereotype.Component;
 
 @Component
+@EqualsAndHashCode(callSuper = true)
 public class UserInfoConverterC2S extends Converter<UserInfo, UserInfoInService> {
     @Override
     protected UserInfoInService doForward(UserInfo userInfo) {

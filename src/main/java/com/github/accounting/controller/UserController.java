@@ -3,7 +3,6 @@ package com.github.accounting.controller;
 import com.github.accounting.converter.c2s.UserInfoConverterC2S;
 import com.github.accounting.exception.InvalidParameterException;
 import com.github.accounting.manager.UserInfoManager;
-import com.github.accounting.model.commom.UserInfo;
 import com.github.accounting.model.service.UserInfoInService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/user")
@@ -42,7 +41,9 @@ public class UserController {
         if (userId <= 0) {
             throw new InvalidParameterException(String.format("invalid user id %s", userId));
         }
-        UserInfo userInfo = userInfoManager.getUserInfoByUserId(userId);
-        return ResponseEntity.ok(Objects.requireNonNull(converter.convert(userInfo)));
+        return Optional.ofNullable(userInfoManager.getUserInfoByUserId(userId))
+                .map(converter::convert)
+                .map(ResponseEntity::ok)
+                .get();
     }
 }

@@ -4,9 +4,11 @@ import com.github.accounting.model.commom.UserInfo;
 import com.github.accounting.model.persistence.UserInfoInPersistence;
 
 import com.google.common.base.Converter;
+import lombok.EqualsAndHashCode;
 import org.springframework.stereotype.Component;
 
 @Component
+@EqualsAndHashCode(callSuper = true)
 public class UserInfoConverterP2C extends Converter<UserInfoInPersistence, UserInfo> {
 
     @Override
