@@ -1,28 +1,18 @@
 package com.github.AccountService.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.accountService.controller.UserController;
-import com.github.accountService.converter.c2s.UserInfoConverterC2S;
-import com.github.accountService.dao.mapper.UserInfoMapper;
-import com.github.accountService.exception.handler.GlobalExceptionHandler;
-import com.github.accountService.manager.UserInfoManager;
-import com.github.accountService.manager.UserInfoManagerImpl;
-import com.github.accountService.model.commom.UserInfo;
-import com.github.accountService.model.service.UserInfoInService;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import com.github.accounting.controller.UserController;
+import com.github.accounting.converter.c2s.UserInfoConverterC2S;
+import com.github.accounting.exception.handler.GlobalExceptionHandler;
+import com.github.accounting.manager.UserInfoManagerImpl;
+import com.github.accounting.model.commom.UserInfo;
+import com.github.accounting.model.service.UserInfoInService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.anyLong;

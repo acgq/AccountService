@@ -1,11 +1,11 @@
-package com.github.accountService.manager;
+package com.github.accounting.manager;
 
-import com.github.accountService.converter.p2c.UserInfoConverterP2C;
-import com.github.accountService.dao.UserInfoDao;
-import com.github.accountService.exception.InvalidParameterException;
-import com.github.accountService.exception.ResourceNotFoundException;
-import com.github.accountService.model.commom.UserInfo;
-import com.github.accountService.model.persistence.UserInfoInPersistence;
+import com.github.accounting.converter.p2c.UserInfoConverterP2C;
+import com.github.accounting.dao.UserInfoDao;
+import com.github.accounting.exception.ResourceNotFoundException;
+import com.github.accounting.model.commom.UserInfo;
+import com.github.accounting.model.persistence.UserInfoInPersistence;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,9 @@ public class UserInfoManagerImpl implements UserInfoManager {
     public UserInfo getUserInfoByUserId(Long userId) {
         UserInfoInPersistence userInfo = Optional
                 .ofNullable(userInfoDao.getUserInfoByUserId(userId))
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("User %s not found", userId)));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(String.format("User %s not found", userId)
+                        ));
         return converter.convert(userInfo);
     }
 }

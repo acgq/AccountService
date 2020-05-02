@@ -1,7 +1,8 @@
-package com.github.accountService.dao;
+package com.github.accounting.dao;
 
-import com.github.accountService.dao.mapper.UserInfoMapper;
-import com.github.accountService.model.persistence.UserInfoInPersistence;
+import com.github.accounting.dao.mapper.UserInfoMapper;
+import com.github.accounting.model.persistence.UserInfoInPersistence;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

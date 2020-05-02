@@ -1,11 +1,8 @@
-package com.github.accountService.exception;
+package com.github.accounting.exception;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
-/**
- *
- */
 @Data
 public class ServiceException extends RuntimeException {
     private HttpStatus httpStatus;

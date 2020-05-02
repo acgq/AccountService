@@ -1,10 +1,10 @@
 package com.github.AccountService.mannager;
 
-import com.github.accountService.converter.p2c.UserInfoConverterP2C;
-import com.github.accountService.dao.UserInfoDaoImpl;
-import com.github.accountService.manager.UserInfoManagerImpl;
-import com.github.accountService.model.commom.UserInfo;
-import com.github.accountService.model.persistence.UserInfoInPersistence;
+import com.github.accounting.converter.p2c.UserInfoConverterP2C;
+import com.github.accounting.dao.UserInfoDaoImpl;
+import com.github.accounting.manager.UserInfoManagerImpl;
+import com.github.accounting.model.commom.UserInfo;
+import com.github.accounting.model.persistence.UserInfoInPersistence;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

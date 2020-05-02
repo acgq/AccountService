@@ -1,4 +1,4 @@
-package com.github.accountService.model.service;
+package com.github.accounting.model.service;
 
 import lombok.Builder;
 import lombok.Data;

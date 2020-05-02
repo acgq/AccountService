@@ -1,7 +1,7 @@
-package com.github.accountService.converter.c2s;
+package com.github.accounting.converter.c2s;
+import com.github.accounting.model.commom.UserInfo;
+import com.github.accounting.model.service.UserInfoInService;
 
-import com.github.accountService.model.commom.UserInfo;
-import com.github.accountService.model.service.UserInfoInService;
 import com.google.common.base.Converter;
 import org.springframework.stereotype.Component;
 

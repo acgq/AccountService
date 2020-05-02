@@ -1,9 +1,12 @@
-package com.github.accountService.exception;
+package com.github.accounting.exception;
 
 import org.springframework.http.HttpStatus;
 
 public class InvalidParameterException extends ServiceException {
-
+    /**
+     * Constructor .
+     * @param message exception message.
+     */
     public InvalidParameterException(String message) {
         super(message);
         this.setErrorCode("INVALID_PARAMETER");

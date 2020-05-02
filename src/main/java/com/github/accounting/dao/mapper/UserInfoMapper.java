@@ -1,6 +1,7 @@
-package com.github.accountService.dao.mapper;
+package com.github.accounting.dao.mapper;
 
-import com.github.accountService.model.persistence.UserInfoInPersistence;
+import com.github.accounting.model.persistence.UserInfoInPersistence;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

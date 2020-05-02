@@ -1,4 +1,4 @@
-package com.github.accountService.exception;
+package com.github.accounting.exception;
 
 import lombok.Builder;
 import lombok.Data;

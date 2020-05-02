@@ -1,7 +1,8 @@
-package com.github.accountService.converter.p2c;
+package com.github.accounting.converter.p2c;
 
-import com.github.accountService.model.commom.UserInfo;
-import com.github.accountService.model.persistence.UserInfoInPersistence;
+import com.github.accounting.model.commom.UserInfo;
+import com.github.accounting.model.persistence.UserInfoInPersistence;
+
 import com.google.common.base.Converter;
 import org.springframework.stereotype.Component;
 

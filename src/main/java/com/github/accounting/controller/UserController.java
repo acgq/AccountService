@@ -1,10 +1,11 @@
-package com.github.accountService.controller;
+package com.github.accounting.controller;
 
-import com.github.accountService.converter.c2s.UserInfoConverterC2S;
-import com.github.accountService.exception.InvalidParameterException;
-import com.github.accountService.manager.UserInfoManager;
-import com.github.accountService.model.commom.UserInfo;
-import com.github.accountService.model.service.UserInfoInService;
+import com.github.accounting.converter.c2s.UserInfoConverterC2S;
+import com.github.accounting.exception.InvalidParameterException;
+import com.github.accounting.manager.UserInfoManager;
+import com.github.accounting.model.commom.UserInfo;
+import com.github.accounting.model.service.UserInfoInService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,12 @@ public class UserController {
         this.converter = converter;
     }
 
+    /**
+     * Get user by user id.
+     *
+     * @param userId user id.
+     * @return User information.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UserInfoInService> getUserInfoByUserId(@PathVariable("id") long userId) {
         log.debug("Get user info by user id: " + userId);

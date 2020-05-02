@@ -1,11 +1,12 @@
-package com.github.accountService.exception;
+package com.github.accounting.exception;
 
 import org.springframework.http.HttpStatus;
 
-/**
- * Accounting Service ResourceNotFoundException
- */
 public class ResourceNotFoundException extends ServiceException {
+    /**
+     *  Constructor for ResourceNotFoundException.
+     * @param message exception message.
+     */
     public ResourceNotFoundException(String message) {
         super(message);
         this.setErrorType(ErrorType.Client);

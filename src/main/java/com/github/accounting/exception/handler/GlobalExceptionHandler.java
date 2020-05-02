@@ -1,7 +1,7 @@
-package com.github.accountService.exception.handler;
+package com.github.accounting.exception.handler;
+import com.github.accounting.exception.ErrorResponse;
+import com.github.accounting.exception.ServiceException;
 
-import com.github.accountService.exception.ErrorResponse;
-import com.github.accountService.exception.ServiceException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

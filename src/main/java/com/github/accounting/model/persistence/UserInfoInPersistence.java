@@ -1,4 +1,4 @@
-package com.github.accountService.model.persistence;
+package com.github.accounting.model.persistence;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
