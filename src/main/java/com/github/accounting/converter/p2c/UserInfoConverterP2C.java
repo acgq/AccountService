@@ -18,6 +18,7 @@ public class UserInfoConverterP2C extends Converter<UserInfoInPersistence, UserI
                 .id(userInfoInPersistence.getId())
                 .username(userInfoInPersistence.getUsername())
                 .password(userInfoInPersistence.getPassword())
+                .salt(userInfoInPersistence.getSalt())
                 .build();
     }
 
@@ -27,6 +28,7 @@ public class UserInfoConverterP2C extends Converter<UserInfoInPersistence, UserI
                 .id(userInfo.getId())
                 .username(userInfo.getUsername())
                 .password(userInfo.getPassword())
+                .salt(userInfo.getSalt())
                 .build();
     }
 }

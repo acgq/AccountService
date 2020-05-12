@@ -339,7 +339,7 @@
 
         <!-- Check for Imports -->
         <!-- https://checkstyle.sourceforge.io/config_imports.html -->
-        <module name="AvoidStarImport"/>
+<!--        <module name="AvoidStarImport"/>-->
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <module name="CustomImportOrder">
