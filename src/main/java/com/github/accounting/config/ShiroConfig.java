@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javax.servlet.Filter;
 
 @Configuration
 public class ShiroConfig {
@@ -23,21 +24,36 @@ public class ShiroConfig {
         return securityManager;
     }
 
+    /**
+     * get shiro filter factory bean.
+     *
+     * @param securityManager securityManager
+     * @return bean
+     */
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new CustomShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
+        //add custom filter
+        Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
+        filters.put("custom", new CustomHttpFilter());
+        filters.put("authc", new CustomFormAuthenticationFilter());
+
         Map<String, String> shiroFilterDefinitionMap = new LinkedHashMap<>();
-        // TODO consider different http method need different filter.
-        shiroFilterDefinitionMap.put("/v1/user/**", "anon");
+        shiroFilterDefinitionMap.put("/v1/user/**::post", "custom");
         shiroFilterDefinitionMap.put("/v1/session/**", "anon");
-        //shiroFilterDefinitionMap.put("/**", "authc");
+        shiroFilterDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
+    /**
+     * get CredentialMatcher bean.
+     *
+     * @return bean instance
+     */
     @Bean
     public HashedCredentialsMatcher getHashedCredentialsMatcher() {
         HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();

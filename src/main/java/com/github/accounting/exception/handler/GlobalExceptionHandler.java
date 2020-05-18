@@ -1,5 +1,6 @@
 package com.github.accounting.exception.handler;
 
+import com.github.accounting.exception.BizErrorCode;
 import com.github.accounting.exception.ErrorResponse;
 import com.github.accounting.exception.ServiceException;
 
@@ -28,7 +29,7 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(ex.getMessage())
-                .errorCode("INCORRECT_CREDENTIAL")
+                .errorCode(BizErrorCode.INCORRECT_CREDENTIAL)
                 .errorType(ServiceException.ErrorType.Client)
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())

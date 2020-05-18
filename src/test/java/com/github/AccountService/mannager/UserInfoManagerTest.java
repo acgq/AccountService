@@ -36,8 +36,7 @@ public class UserInfoManagerTest {
         String username = "test";
         String password = "testPassword";
 
-
-        UserInfoInPersistence userInfo =UserInfoInPersistence.builder()
+        UserInfoInPersistence userInfo = UserInfoInPersistence.builder()
                 .id(id)
                 .username(username)
                 .password(password)
@@ -45,8 +44,10 @@ public class UserInfoManagerTest {
                 .updateTime(LocalDate.now())
                 .build();
         when(userInfoDao.getUserInfoByUserId(1L)).thenReturn(userInfo);
+
         //act
         UserInfo result = userInfoManager.getUserInfoByUserId(userInfo.getId());
+
         //assert
         Assertions.assertThat(result).isNotNull()
                 .hasFieldOrPropertyWithValue("id", id)
@@ -54,7 +55,10 @@ public class UserInfoManagerTest {
                 .hasFieldOrPropertyWithValue("password", password);
 
         verify(userInfoDao, times(1)).getUserInfoByUserId(userInfo.getId());
+    }
 
+    @Test
+    public void testRegistry() {
 
     }
 }

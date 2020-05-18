@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 @Data
 public class ServiceException extends RuntimeException {
     private HttpStatus httpStatus;
-    private String errorCode;
+    private BizErrorCode errorCode;
     private ErrorType errorType;
 
     public enum ErrorType {

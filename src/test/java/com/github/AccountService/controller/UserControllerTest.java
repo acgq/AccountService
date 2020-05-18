@@ -1,5 +1,6 @@
 package com.github.AccountService.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.accounting.controller.UserController;
 import com.github.accounting.converter.c2s.UserInfoConverterC2S;
 import com.github.accounting.exception.handler.GlobalExceptionHandler;
@@ -11,20 +12,24 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @ExtendWith({MockitoExtension.class})
 class UserControllerTest {
-    @Mock
-    UserInfoConverterC2S converter;
+    @Spy
+    UserInfoConverterC2S converter = new UserInfoConverterC2S();
     @Mock
     UserInfoManagerImpl userInfoManager;
     @InjectMocks
@@ -53,21 +58,15 @@ class UserControllerTest {
                 .username(username)
                 .password(password)
                 .build();
-        UserInfo userInfo = UserInfo.builder()
-                .id(id)
-                .username(username)
-                .password(password)
-                .build();
+        UserInfo userInfo = converter.reverse().convert(userInfoInService);
         doReturn(userInfo).when(userInfoManager).getUserInfoByUserId(id);
-        doReturn(userInfoInService).when(converter).convert(userInfo);
         //act
-        mockMvc.perform(get(url + 1))
+        mockMvc.perform(get(url + 1).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(content().string("{\"id\":1,\"username\":\"test\",\"password\":\"testPassword\"}"));
+                .andExpect(content().string(new ObjectMapper().writeValueAsString(userInfoInService)));
         //assert
         verify(userInfoManager).getUserInfoByUserId(anyLong());
-        verify(converter, only()).convert(userInfo);
     }
 
     @Test
@@ -79,5 +78,33 @@ class UserControllerTest {
                 .andExpect(content().string(String.format("{\"statusCode\":400,\"errorCode\":\"INVALID_PARAMETER\",\"errorType\":\"Client\",\"message\":\"invalid user id %s\"}", id)));
         verify(userInfoManager, never()).getUserInfoByUserId(anyLong());
     }
+
+    @Test
+    public void testRegisterUser() throws Exception {
+        //arrange
+        String url = "/v1/user";
+        String username = "user";
+        String password = "password";
+        UserInfoInService userInfo = UserInfoInService.builder()
+                .username(username)
+                .password(password)
+                .build();
+        UserInfo result = UserInfo.builder()
+                .id(1L)
+                .username(username)
+                .password(password)
+                .build();
+        doReturn(result).when(userInfoManager).registerUser(username, password);
+
+        //act
+        mockMvc.perform(post(url)
+                .content(new ObjectMapper().writeValueAsString(userInfo))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(new ObjectMapper().writeValueAsString(converter.convert(result))));
+        verify(userInfoManager, only()).registerUser(username, password);
+    }
+
 
 }

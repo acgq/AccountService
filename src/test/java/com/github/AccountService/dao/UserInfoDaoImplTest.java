@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 class UserInfoDaoImplTest {
     @Mock
@@ -27,6 +28,17 @@ class UserInfoDaoImplTest {
 
         //assert
         verify(userInfoMapper, only()).getUserInfoByUserId(1L);
+    }
+
+    @Test
+    public void testRegistry() {
+        UserInfoInPersistence userInfo = UserInfoInPersistence.builder()
+                .id(1L)
+                .username("username")
+                .password("password")
+                .build();
+        userInfoDao.createUserInfo(userInfo);
+        verify(userInfoMapper, only()).createUserInfo(userInfo);
     }
 
 }

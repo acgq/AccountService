@@ -34,6 +34,7 @@ public class UserController {
      * @return User information.
      */
     @GetMapping("/{id}")
+    @PostMapping(produces = "application/json")
     public ResponseEntity<UserInfoInService> getUserInfoByUserId(@PathVariable("id") long userId) {
         log.debug("Get user info by user id: " + userId);
         if (userId <= 0) {
@@ -48,14 +49,12 @@ public class UserController {
     /**
      * create new user.
      *
-     * @param username username to be register
-     * @param password password
+     * @param userinfo userInfo
      * @return user created
      */
-    @PostMapping()
-    public ResponseEntity<UserInfoInService> register(@RequestParam("username") String username,
-                                                      @RequestParam("password") String password) {
-        UserInfo userInfo = userInfoManager.registerUser(username, password);
+    @PostMapping(produces = "application/json", consumes = "application/json")
+    public ResponseEntity<UserInfoInService> register(@RequestBody UserInfoInService userinfo) {
+        UserInfo userInfo = userInfoManager.registerUser(userinfo.getUsername(), userinfo.getPassword());
         return Optional.ofNullable(userInfo)
                 .map(converter::convert)
                 .map(ResponseEntity::ok)
