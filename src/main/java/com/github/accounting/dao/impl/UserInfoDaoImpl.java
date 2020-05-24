@@ -1,5 +1,6 @@
-package com.github.accounting.dao;
+package com.github.accounting.dao.impl;
 
+import com.github.accounting.dao.UserInfoDao;
 import com.github.accounting.dao.mapper.UserInfoMapper;
 import com.github.accounting.model.persistence.UserInfoInPersistence;
 

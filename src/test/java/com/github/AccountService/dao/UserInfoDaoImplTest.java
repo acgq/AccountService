@@ -1,6 +1,6 @@
 package com.github.AccountService.dao;
 
-import com.github.accounting.dao.UserInfoDaoImpl;
+import com.github.accounting.dao.impl.UserInfoDaoImpl;
 import com.github.accounting.dao.mapper.UserInfoMapper;
 import com.github.accounting.model.persistence.UserInfoInPersistence;
 import org.junit.jupiter.api.Test;

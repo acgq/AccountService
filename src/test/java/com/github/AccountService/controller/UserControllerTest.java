@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.accounting.controller.UserController;
 import com.github.accounting.converter.c2s.UserInfoConverterC2S;
 import com.github.accounting.exception.handler.GlobalExceptionHandler;
-import com.github.accounting.manager.UserInfoManagerImpl;
+import com.github.accounting.manager.impl.UserInfoManagerImpl;
 import com.github.accounting.model.commom.UserInfo;
 import com.github.accounting.model.service.UserInfoInService;
 import org.junit.jupiter.api.BeforeEach;

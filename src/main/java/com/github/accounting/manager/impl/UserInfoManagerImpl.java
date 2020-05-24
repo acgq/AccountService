@@ -1,9 +1,10 @@
-package com.github.accounting.manager;
+package com.github.accounting.manager.impl;
 
 import com.github.accounting.converter.p2c.UserInfoConverterP2C;
 import com.github.accounting.dao.UserInfoDao;
 import com.github.accounting.exception.InvalidParameterException;
 import com.github.accounting.exception.ResourceNotFoundException;
+import com.github.accounting.manager.UserInfoManager;
 import com.github.accounting.model.commom.UserInfo;
 import com.github.accounting.model.persistence.UserInfoInPersistence;
 

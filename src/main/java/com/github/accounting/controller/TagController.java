@@ -1,0 +1,83 @@
+package com.github.accounting.controller;
+
+import com.github.accounting.converter.c2s.TagConverterC2S;
+import com.github.accounting.exception.InvalidParameterException;
+import com.github.accounting.manager.TagManager;
+import com.github.accounting.model.commom.Tag;
+import com.github.accounting.model.service.TagInService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("v1/tags")
+public class TagController {
+    private static final String APPLICATION_JSON_VALUE = "application/json";
+    private final TagManager tagManager;
+    private final TagConverterC2S tagConverter;
+
+    @Autowired
+    public TagController(TagManager tagManager, TagConverterC2S tagConverter) {
+        this.tagManager = tagManager;
+        this.tagConverter = tagConverter;
+    }
+
+    /**
+     * Get tag information by tag id.
+     *
+     * @param id the specific tag id.
+     * @return the related tag information.
+     */
+    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    public TagInService getTagByTagId(@PathVariable("id") Long id) {
+        if (id == null || id <= 0L) {
+            throw new InvalidParameterException("the tagId must be positive");
+        }
+        Tag tagByTagId = tagManager.getTagByTagId(id);
+        return tagConverter.convert(tagByTagId);
+    }
+
+    /**
+     * Create tag with related information.
+     *
+     * @param tag tag information to create.
+     * @return tag created.
+     */
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public TagInService createTag(@RequestBody TagInService tag) {
+        if (tag.getDescription() == null
+                || tag.getDescription().isEmpty()
+                || tag.getUserId() == null
+                || tag.getUserId() <= 0L) {
+            throw new InvalidParameterException("The description and user id must be not null or empty");
+        }
+        Tag resource = tagManager.createTag(tag.getDescription(), tag.getUserId());
+        return tagConverter.convert(resource);
+    }
+
+    /**
+     * Update tag information for specific tag.
+     *
+     * @param tagId the specific tag id.
+     * @param tag   the tag information.
+     * @return the updated tag information.
+     */
+    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public TagInService updateTag(@PathVariable("id") Long tagId, @RequestBody TagInService tag) {
+        if (tagId == null || tagId <= 0L) {
+            throw new InvalidParameterException("The tag id must be not empty and positive");
+        }
+        if (tag.getUserId() == null || tag.getUserId() <= 0L) {
+            throw new InvalidParameterException("The user id is empty or invalid");
+        }
+        String status = tag.getStatus();
+        if (status != null && !"ENABLE".equals(status) && !"DISABLE".equals(status)) {
+            throw new InvalidParameterException(String.format("the status [%s] is invalid", status));
+        }
+        tag.setId(tagId);
+        Tag tagInCommon = tagConverter.reverse().convert(tag);
+        Tag resource = tagManager.updateTag(tagInCommon);
+        return tagConverter.convert(resource);
+
+    }
+}
