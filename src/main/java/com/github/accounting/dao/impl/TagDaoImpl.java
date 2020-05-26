@@ -7,6 +7,8 @@ import com.github.accounting.model.persistence.TagInPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class TagDaoImpl implements TagDao {
 
@@ -30,6 +32,11 @@ public class TagDaoImpl implements TagDao {
     @Override
     public TagInPersistence getTagByDescription(String description, Long userId) {
         return tagMapper.getTagByDescription(description, userId);
+    }
+
+    @Override
+    public List<TagInPersistence> getTagList(List<Long> ids) {
+        return tagMapper.getTagListByIds(ids);
     }
 
     @Override

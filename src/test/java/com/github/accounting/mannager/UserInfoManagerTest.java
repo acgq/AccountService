@@ -1,4 +1,4 @@
-package com.github.AccountService.mannager;
+package com.github.accounting.mannager;
 
 import com.github.accounting.converter.p2c.UserInfoConverterP2C;
 import com.github.accounting.dao.impl.UserInfoDaoImpl;

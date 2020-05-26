@@ -1,4 +1,4 @@
-package com.github.AccountService.dao;
+package com.github.accounting.dao;
 
 import com.github.accounting.dao.impl.UserInfoDaoImpl;
 import com.github.accounting.dao.mapper.UserInfoMapper;

@@ -1,7 +1,6 @@
-package com.github.AccountService.controller;
+package com.github.accounting.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.accounting.controller.UserController;
 import com.github.accounting.converter.c2s.UserInfoConverterC2S;
 import com.github.accounting.exception.handler.GlobalExceptionHandler;
 import com.github.accounting.manager.impl.UserInfoManagerImpl;

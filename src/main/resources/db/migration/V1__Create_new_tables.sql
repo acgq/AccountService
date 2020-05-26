@@ -4,7 +4,7 @@ CREATE TABLE `as_userinfo`
     `username`    varchar(64)         NOT NULL COMMENT 'user name',
     `password`    varchar(64)         NOT NULL,
     `salt`        varchar(50)         NOT NULL,
-    `create_time` datetime            NOT NULL,
+    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY `pk_id` (`id`),
     UNIQUE KEY `uk_username` (`username`)
@@ -41,7 +41,6 @@ CREATE TABLE `as_record_tag_mapping`
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT,
     `record_id`   bigint(20) unsigned NOT NULL,
     `tag_id`  bigint(20) unsigned NOT NULL,
-    `status`      tinyint(1) unsigned NOT NULL COMMENT '0-> disabled, 1-> enabled',
     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY `pk_id` (`id`)
