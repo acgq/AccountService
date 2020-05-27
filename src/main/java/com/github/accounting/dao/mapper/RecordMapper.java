@@ -29,4 +29,16 @@ public interface RecordMapper {
                             + "RecordTagMapper.getTagListByRecordId"))})
     RecordInPersistence getRecordById(@Param("id") Long id);
 
+    @Select("SELECT id, user_id, amount, note, category, status FROM as_record WHERE user_id = #{userId}")
+    @Results({@Result(property = "id", column = "id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "amount", column = "amount"),
+            @Result(property = "category", column = "category"),
+            @Result(property = "status", column = "status"),
+            @Result(property = "tagList", javaType = List.class, column = "id",
+                    many = @Many(select = "comrgithub.accounting.dao.mapper."
+                            + "RecordTagMapper.getTagListByRecordId"))})
+    List<RecordInPersistence> getRecordByUserId(@Param("userId") Long userId,
+                                                @Param("pageNum") int pageNum,
+                                                @Param("pageSize") int pageSize);
 }

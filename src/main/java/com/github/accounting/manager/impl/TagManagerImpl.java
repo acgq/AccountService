@@ -7,7 +7,9 @@ import com.github.accounting.exception.ResourceNotFoundException;
 import com.github.accounting.manager.TagManager;
 import com.github.accounting.model.commom.Tag;
 import com.github.accounting.model.persistence.TagInPersistence;
+import com.github.pagehelper.PageInfo;
 
+import com.google.common.collect.ImmutableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -67,5 +69,11 @@ public class TagManagerImpl implements TagManager {
         tagDao.updateTag(convert);
         return getTagByTagId(tag.getId());
 
+    }
+
+    @Override
+    public PageInfo<Tag> getTags(Long userId, int pageNum, int pageSize) {
+        return new PageInfo<>(ImmutableList.copyOf(
+                tagConverter.convertAll(tagDao.getTagListByUserId(userId, pageNum, pageSize))));
     }
 }

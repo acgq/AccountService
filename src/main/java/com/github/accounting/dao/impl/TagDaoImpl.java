@@ -40,6 +40,12 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
+    public List<TagInPersistence> getTagListByUserId(Long userId, int pageNum, int pageSize) {
+        return tagMapper.getTags(userId, pageNum, pageSize);
+    }
+
+
+    @Override
     public void updateTag(TagInPersistence tag) {
         tagMapper.updateTag(tag);
     }

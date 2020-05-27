@@ -3,9 +3,13 @@ package com.github.accounting.controller;
 import com.github.accounting.converter.c2s.TagConverterC2S;
 import com.github.accounting.exception.InvalidParameterException;
 import com.github.accounting.manager.TagManager;
+import com.github.accounting.manager.UserInfoManager;
 import com.github.accounting.model.commom.Tag;
+import com.github.accounting.model.commom.UserInfo;
 import com.github.accounting.model.service.TagInService;
+import com.github.pagehelper.PageInfo;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +18,20 @@ import org.springframework.web.bind.annotation.*;
 public class TagController {
     private static final String APPLICATION_JSON_VALUE = "application/json";
     private final TagManager tagManager;
+    private final UserInfoManager userInfoManager;
     private final TagConverterC2S tagConverter;
 
+    /**
+     * Constructor of tag controller.
+     *
+     * @param tagManager      tag manager
+     * @param userInfoManager userinfo manager
+     * @param tagConverter    tag converter from common to service
+     */
     @Autowired
-    public TagController(TagManager tagManager, TagConverterC2S tagConverter) {
+    public TagController(TagManager tagManager, UserInfoManager userInfoManager, TagConverterC2S tagConverter) {
         this.tagManager = tagManager;
+        this.userInfoManager = userInfoManager;
         this.tagConverter = tagConverter;
     }
 
@@ -35,6 +48,22 @@ public class TagController {
         }
         Tag tagByTagId = tagManager.getTagByTagId(id);
         return tagConverter.convert(tagByTagId);
+    }
+
+    /**
+     * Get tags with specific page number and page size.
+     *
+     * @param pageNum  page number
+     * @param pageSize page size
+     * @return tag info
+     */
+    @GetMapping(value = "", produces = APPLICATION_JSON_VALUE)
+    public PageInfo<Tag> getTags(@RequestParam("pageNum") int pageNum,
+                                 @RequestParam("pageSize") int pageSize) {
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        UserInfo userInfo = userInfoManager.getUserInfoByUsername(username);
+        PageInfo<Tag> tags = tagManager.getTags(userInfo.getId(), pageNum, pageSize);
+        return tags;
     }
 
     /**

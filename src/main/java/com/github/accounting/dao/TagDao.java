@@ -11,7 +11,9 @@ public interface TagDao {
 
     TagInPersistence getTagByDescription(String description, Long userId);
 
+    void updateTag(TagInPersistence tag);
+
     List<TagInPersistence> getTagList(List<Long> ids);
 
-    void updateTag(TagInPersistence tag);
+    List<TagInPersistence> getTagListByUserId(Long userId, int pageNum, int pageSize);
 }

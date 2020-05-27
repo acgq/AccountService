@@ -31,13 +31,6 @@ public interface RecordTagMapper {
     //    @SelectProvider(value = RecordTagMappingProvider.class, method = "getMappingByRecordId")
     @Select("SELECT id, record_id, tag_id,create_time, update_time  FROM as_record_tag_mapping "
             + "WHERE record_id = #{id}")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(column = "record_id", property = "recordId"),
-            @Result(column = "tag_id", property = "tagId"),
-            @Result(column = "create_time", property = "createTime"),
-            @Result(column = "update_time", property = "updateTime")
-    })
     List<RecordTagMapping> getMappingByRecordId(@Param("id") Long id);
 
 
@@ -51,4 +44,6 @@ public interface RecordTagMapper {
             @Result(column = "update_time", property = "updateTime")
     })
     List<TagInPersistence> getTagListByRecordId(@Param("id") Long id);
+
+
 }

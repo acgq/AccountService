@@ -49,4 +49,17 @@ public interface TagMapper {
             @Result(column = "update_time", property = "updateTime"),
     })
     List<TagInPersistence> getTagListByIds(@Param("ids") List<Long> ids);
+
+    @Select("SELECT id, user_id, description, status, create_time, update_time FROM as_tag "
+            + "WHERE user_id = #{userId}")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "description", property = "description"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "create_time", property = "createTime"),
+            @Result(column = "update_time", property = "updateTime")
+    })
+    List<TagInPersistence> getTags(@Param("userId") Long userId,
+                                   @Param("pageNum") int pageNum,
+                                   @Param("pageSize") int pageSize);
 }

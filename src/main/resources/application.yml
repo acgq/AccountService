@@ -11,3 +11,6 @@ server:
 logging:
   level:
     com.github: debug
+
+pagehelper:
+  support-methods-arguments: true
