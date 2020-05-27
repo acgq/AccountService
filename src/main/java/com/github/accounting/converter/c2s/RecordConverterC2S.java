@@ -7,10 +7,12 @@ import com.github.accounting.model.service.TagInService;
 
 import com.google.common.base.Converter;
 import com.google.common.collect.ImmutableList;
+import lombok.EqualsAndHashCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@EqualsAndHashCode(callSuper = true)
 public class RecordConverterC2S extends Converter<Record, RecordInService> {
     private final TagConverterC2S tagConverterC2S;
 

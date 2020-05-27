@@ -146,20 +146,6 @@
                     <user>root</user>
                     <password>123456</password>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>test-database-setup</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>migrate</goal>
-                        </goals>
-                        <configuration>
-                            <url>jdbc:h2::mem:test</url>
-                            <user>test</user>
-                            <password>123456</password>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <!-- Jacoco plugin -->
             <plugin>

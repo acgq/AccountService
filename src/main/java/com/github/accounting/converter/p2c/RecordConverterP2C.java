@@ -7,10 +7,12 @@ import com.github.accounting.model.persistence.TagInPersistence;
 
 import com.google.common.base.Converter;
 import com.google.common.collect.ImmutableList;
+import lombok.EqualsAndHashCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@EqualsAndHashCode(callSuper = true)
 public class RecordConverterP2C extends Converter<RecordInPersistence, Record> {
     private static final String ENABLE = "ENABLE";
     private static final String DISABLE = "DISABLE";

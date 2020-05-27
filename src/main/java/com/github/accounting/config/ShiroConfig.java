@@ -45,6 +45,12 @@ public class ShiroConfig {
         shiroFilterDefinitionMap.put("/v1/session/**", "anon");
         shiroFilterDefinitionMap.put("/**", "authc");
 
+        //swagger related url.
+        shiroFilterDefinitionMap.put("/swagger-ui.html/**", "anon");
+        shiroFilterDefinitionMap.put("/swagger-resources/**", "anon");
+        shiroFilterDefinitionMap.put("/v2/**", "anon");
+        shiroFilterDefinitionMap.put("/webjars/**", "anon");
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterDefinitionMap);
         return shiroFilterFactoryBean;
     }
